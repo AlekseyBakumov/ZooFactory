@@ -1,4 +1,4 @@
-﻿#include <string>
+#include <string>
 #include <vector>
 #include <iostream>
 
@@ -116,6 +116,91 @@ public:
 
 #pragma endregion
 
+#pragma region Creators
+
+class Creator {
+public:
+    virtual ~Creator() {};
+    virtual GenericCreature* FactoryMethod() const = 0;
+    void FeedCreature() const {
+        GenericCreature* creature = this->FactoryMethod();
+        creature->eat();
+        delete creature;
+    }
+};
+
+class SpecificCreatorCarp : public Creator {
+public:
+    GenericCreature* FactoryMethod() const override {
+        return new Carp();
+    }
+};
+
+class SpecificCreatorClownFish : public Creator {
+public:
+    GenericCreature* FactoryMethod() const override {
+        return new ClownFish();
+    }
+};
+
+class SpecificCreatorAlligator : public Creator {
+public:
+    GenericCreature* FactoryMethod() const override {
+        return new Alligator();
+    }
+};
+
+class SpecificCreatorCrocodile : public Creator {
+public:
+    GenericCreature* FactoryMethod() const override {
+        return new Crocodile();
+    }
+};
+
+class SpecificCreatorCat : public Creator {
+public:
+    GenericCreature* FactoryMethod() const override {
+        return new Cat();
+    }
+};
+
+class SpecificCreatorDog : public Creator {
+public:
+    GenericCreature* FactoryMethod() const override {
+        return new Dog();
+    }
+};
+
+class SpecificCreatorParrot : public Creator {
+public:
+    GenericCreature* FactoryMethod() const override {
+        return new Parrot();
+    }
+};
+
+class SpecificCreatorPigeon : public Creator {
+public:
+    GenericCreature* FactoryMethod() const override {
+        return new Pigeon();
+    }
+};
+
+class SpecificCreatorDuck : public Creator {
+public:
+    GenericCreature* FactoryMethod() const override {
+        return new Duck();
+    }
+};
+
+class SpecificCreatorSeagull : public Creator {
+public:
+    GenericCreature* FactoryMethod() const override {
+        return new Seagull();
+    }
+};
+
+#pragma endregion
+
 class ZooFactory
 {
 public:
@@ -144,7 +229,40 @@ class Zoo2 : public ZooFactory
     virtual Waterfowl*           ProduceWaterfowl()           { return new Seagull(); }
 };
 
-int main()
+void ClientCodeCreator()
+{
+    SpecificCreatorCarp carp;
+    carp.FeedCreature();
+
+    SpecificCreatorClownFish clownfish;
+    clownfish.FeedCreature();
+
+    SpecificCreatorAlligator allig;
+    allig.FeedCreature();
+
+    SpecificCreatorCrocodile croc;
+    croc.FeedCreature();
+    
+    SpecificCreatorCat cat;
+    cat.FeedCreature();
+
+    SpecificCreatorDog dog;
+    dog.FeedCreature();
+
+    SpecificCreatorPigeon pige;
+    pige.FeedCreature();
+
+    SpecificCreatorParrot parr;
+    parr.FeedCreature();
+
+    SpecificCreatorSeagull seag;
+    seag.FeedCreature();
+
+    SpecificCreatorDuck duck;
+    duck.FeedCreature();
+}
+
+void ClientCodeFactory()
 {
     ZooFactory* zoo1 = new Zoo1();
     ZooFactory* zoo2 = new Zoo2();
@@ -163,6 +281,12 @@ int main()
 
     for (auto iter = horde.begin(); iter != horde.end(); iter++)
         (*iter)->eat();
+}
+
+int main()
+{
+    //ClientCodeCreator();
+    ClientCodeFactory();
 
     return 0;
 }
